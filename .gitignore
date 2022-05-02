@@ -64,7 +64,6 @@ CMakeCache.txt
 CMakeFiles
 CMakeScripts
 Testing
-Makefile
 cmake_install.cmake
 install_manifest.txt
 compile_commands.json
@@ -77,7 +76,6 @@ _deps
 
 ### Emacs template
 # -*- mode: gitignore; -*-
-*~
 \#*\#
 /.emacs.desktop
 /.emacs.desktop.lock
@@ -211,7 +209,6 @@ Sessionx.vim
 
 # Temporary
 .netrwhist
-*~
 # Auto-generated tag files
 tags
 # Persistent undo
