@@ -49,6 +49,7 @@
     </scm>
 
     <build>
+        <sourceDirectory>src/main/java</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -90,13 +91,13 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.6</version>
+                <version>0.8.7</version>
                 <configuration>
                     <includes>
-                        <include>com/hansbug/entrancefinder/**/*</include>
+                        <include>com/hansbug/twatcher/**/*</include>
                     </includes>
                     <excludes>
-                        <exclude>com/hansbug/entrancefinder/entrance/**/*</exclude>
+                        <exclude>com/hansbug/twatcher/entrance/**/*</exclude>
                     </excludes>
                     <rules>
                         <rule implementation="org.jacoco.maven.RuleConfiguration">
@@ -144,22 +145,15 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>report</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                    <execution>
                         <id>post-unit-test</id>
                         <phase>test</phase>
                         <goals>
                             <goal>report</goal>
                             <goal>check</goal>
                         </goals>
-                        <configuration>
-                            <dataFile>target/jacoco.exec</dataFile>
-                        </configuration>
+<!--                        <configuration>-->
+<!--                            <dataFile>target/jacoco.exec</dataFile>-->
+<!--                        </configuration>-->
                     </execution>
                 </executions>
             </plugin>

@@ -1,4 +1,4 @@
-package com.hansbug.entrancefinder.config;
+package com.hansbug.twatcher.config;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

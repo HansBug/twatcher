@@ -1,4 +1,4 @@
-package com.hansbug;
+package com.hansbug.twatcher;
 
 public class Main {
     public static void main(String[] args) {
