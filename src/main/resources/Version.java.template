@@ -1,0 +1,42 @@
+package com.hansbug.entrancefinder.config;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.TimeZone;
+
+public class Version {
+    private Version() {
+    }
+
+    /**
+     * original import values
+     */
+    public static final String versionNumber = "@version@";
+    public static final String buildTimeString = "@buildtime@";
+    public static final String buildFullNumber = "@buildnumber@";
+
+    /**
+     * transformed values
+     */
+    private static final int shortNumberLength = 8;
+    private static final TimeZone UTC_TIMEZONE = TimeZone.getTimeZone("UTC");
+    private static final TimeZone LOCAL_TIMEZONE = TimeZone.getDefault();
+    private static final DateTimeFormatter loadDateTimeFormatter =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(UTC_TIMEZONE.toZoneId());
+    private static final DateTimeFormatter dumpDateTimeFormatter =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm z").withZone(LOCAL_TIMEZONE.toZoneId());
+    private static final DateTimeFormatter dumpFullDateTimeFormatter =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss z").withZone(LOCAL_TIMEZONE.toZoneId());
+
+    /**
+     * decorated values
+     */
+    public static final String buildTime = LocalDateTime.parse(buildTimeString, loadDateTimeFormatter)
+            .atZone(UTC_TIMEZONE.toZoneId()).format(dumpDateTimeFormatter);
+    public static final Long buildFullTimestamp = Timestamp.from(LocalDateTime.parse(buildTimeString,
+            loadDateTimeFormatter).atZone(UTC_TIMEZONE.toZoneId()).toInstant()).getTime() / 1000;
+    public static final String buildFullTime = LocalDateTime.parse(buildTimeString, loadDateTimeFormatter)
+            .atZone(UTC_TIMEZONE.toZoneId()).format(dumpFullDateTimeFormatter);
+    public static final String buildShortNumber = buildFullNumber.substring(0, shortNumberLength);
+}
