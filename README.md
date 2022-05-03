@@ -1,5 +1,8 @@
 # twatcher
 
+![Loc](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/HansBug/d47887ec4e357d774260a6369448d897/raw/loc.json)
+![Comments](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/HansBug/d47887ec4e357d774260a6369448d897/raw/comments.json)
+
 [![Docs Deploy](https://github.com/hansbug/twatcher/workflows/Docs%20Deploy/badge.svg)](https://github.com/hansbug/twatcher/actions?query=workflow%3A%22Docs+Deploy%22)
 [![Code Test](https://github.com/hansbug/twatcher/workflows/Code%20Test/badge.svg)](https://github.com/hansbug/twatcher/actions?query=workflow%3A%22Code+Test%22)
 [![Badge Creation](https://github.com/hansbug/twatcher/workflows/Badge%20Creation/badge.svg)](https://github.com/hansbug/twatcher/actions?query=workflow%3A%22Badge+Creation%22)
