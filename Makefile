@@ -9,7 +9,8 @@ VERSION ?= $(shell cat pom.xml | grep -oPm1 "(?<=<version>)[^<]+")
 SRC_DIR    ?= src
 TARGET_DIR ?= target
 
-JAR_FILE ?= ${TARGET_DIR}/${NAME}-${VERSION}-jar-with-dependencies.jar
+CLASSPATH ?= ${TARGET_DIR}/classes
+JAR_FILE  ?= ${TARGET_DIR}/${NAME}-${VERSION}-jar-with-dependencies.jar
 
 CMD ?=
 
@@ -26,7 +27,7 @@ test:
 	$(MVN) test
 
 run: ${JAR_FILE}
-	$(JAVA) -jar "${JAR_FILE}" ${CMD}
+	$(JAVA) -cp "${JAR_FILE}:${CLASSPATH}" com.hansbug.${NAME}.Main ${CMD}
 
 clean:
 	$(MVN) clean
