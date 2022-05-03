@@ -14,20 +14,29 @@ JAR_FILE  ?= ${TARGET_DIR}/${NAME}-${VERSION}-jar-with-dependencies.jar
 
 CMD ?=
 
+# information of twatcher
 info:
 	@echo ${NAME}-${VERSION}
+jar:
+	@echo ${JAR_FILE}
+version:
+	@echo ${VERSION}
 
+# build
 ${JAR_FILE}:
 	$(MVN) package
 
 build:
 	$(MVN) package
 
+# unittest
 test:
 	$(MVN) test
 
+# run code
 run: ${JAR_FILE}
 	$(JAVA) -cp "${JAR_FILE}:${CLASSPATH}" com.hansbug.${NAME}.Main ${CMD}
 
+# clean targets
 clean:
 	$(MVN) clean

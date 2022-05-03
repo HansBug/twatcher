@@ -27,7 +27,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y tree cloc wget curl make graphviz
           dot -V
-      - name: Set up python ${{ matrix.python-version }}
+      - name: Set up python 3.8
         uses: actions/setup-python@v2
         with:
           python-version: 3.8
@@ -35,14 +35,14 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: '8'
+          java-version: ${{ matrix.java-version }}
           cache: 'maven'
       - name: Test the basic environment
         run: |
           java -version
           tree .
-          cloc treevalue
-          cloc test
+          cloc src/main
+          cloc src/test
       - name: Run unittest
         env:
           CI: 'true'
@@ -55,3 +55,54 @@ jobs:
           flags: unittests
           name: codecov-umbrella
           fail_ci_if_error: false
+
+  try_release:
+    name: Try build the release
+    runs-on: ${{ matrix.os }}
+    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - 'ubuntu-18.04'
+        java-version:
+          - '8'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 20
+      - name: Set up system dependences on linux
+        if: ${{ runner.os == 'Linux' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y tree cloc wget curl make graphviz
+          dot -V
+      - name: Set up python 3.8
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Set up java ${{ matrix.java-version }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: ${{ matrix.java-version }}
+          cache: 'maven'
+      - name: Test the basic environment
+        run: |
+          java -version
+          tree .
+          cloc src/main
+          cloc src/test
+      - name: Build packages
+        run: |
+          mvn package
+      - name: Get package version
+        run: |
+          echo "PACKAGE_VERSION=$(make version)" >> $GITHUB_ENV
+          echo "PACKAGE_JAR=$(make jar)" >> $GITHUB_ENV
+      - uses: actions/upload-artifact@v2
+        with:
+          name: twatcher-v${{ env.PACKAGE_VERSION }}
+          path: ${{ env.PACKAGE_JAR }}
