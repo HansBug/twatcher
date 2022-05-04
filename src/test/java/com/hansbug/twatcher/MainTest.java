@@ -16,7 +16,7 @@ public class MainTest {
 
     @Test
     public void testMainVersion() throws IOException {
-        PrintCapture.Captured<Object, ReflectiveOperationException> result = PrintCapture.capture(() ->
+        PrintCapture.Captured<Object, Exception> result = PrintCapture.capture(() ->
                 Main.main(new String[]{"-v"}));
         assert result.getReturnValue() == null;
         assert Objects.equals(result.getStderr(), "");
@@ -28,7 +28,7 @@ public class MainTest {
 
     @Test
     public void testMainHelp() throws IOException {
-        PrintCapture.Captured<Object, ReflectiveOperationException> result = PrintCapture.capture(() ->
+        PrintCapture.Captured<Object, Exception> result = PrintCapture.capture(() ->
                 Main.main(new String[]{"-h"}));
         assert result.getReturnValue() == null;
         assert Objects.equals(result.getStderr(), "");
@@ -44,10 +44,9 @@ public class MainTest {
 
     @Test
     public void testMainSimple() throws IOException {
-        PrintCapture.Captured<Object, ReflectiveOperationException> result = PrintCapture.capture(() ->
+        PrintCapture.Captured<Object, Exception> result = PrintCapture.capture(() ->
                 Main.main(new String[]{"-E", "test.hansbug.TestEntry"}));
         assert result.getReturnValue() == null;
-        assert Objects.equals(result.getStderr(), "");
 
         String stdout = result.getStdout();
         assert stdout.contains("test.hansbug.TestEntry is ran.");
@@ -56,10 +55,9 @@ public class MainTest {
 
     @Test
     public void testMainWithParams() throws IOException {
-        PrintCapture.Captured<Object, ReflectiveOperationException> result = PrintCapture.capture(() ->
+        PrintCapture.Captured<Object, Exception> result = PrintCapture.capture(() ->
                 Main.main(new String[]{"-E", "test.hansbug.TestEntry", "1", "2", "333"}));
         assert result.getReturnValue() == null;
-        assert Objects.equals(result.getStderr(), "");
 
         String stdout = result.getStdout();
         assert stdout.contains("test.hansbug.TestEntry is ran.");

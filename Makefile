@@ -36,6 +36,8 @@ test:
 # run code
 run: ${JAR_FILE}
 	$(JAVA) -cp "${JAR_FILE}:${CLASSPATH}" com.hansbug.${NAME}.Main ${CMD}
+trun: ${JAR_FILE}
+	$(JAVA) -cp "${JAR_FILE}" TestMain
 
 # clean targets
 clean:
